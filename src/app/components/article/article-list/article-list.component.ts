@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ArticleService } from '../../../services/article.service';
 import { ArticleCardComponent } from '../article-card/article-card.component';
 import { Article } from '../../../models/article.model';
@@ -16,6 +16,9 @@ export class ArticleListComponent implements OnInit {
   public selectedArticleId?: number;
   public selectedArticle?: Article;
   isArticleFormOpen = false;
+
+
+  public totalCost = computed(() => this.articles().reduce((sum, article) => sum + article.price, 0));
 
   ngOnInit(): void {
     this.articles.set(this.service.getArticles());
